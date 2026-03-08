@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手机广告位创意Banner</title>
+    <style>
+        /* 定义SVG使用的CSS变量 - 跟随网站主题风格 */
+        :root {
+            /* 网站主题色 */
+            --primary-red: #dc2626;     /* 主红色 */
+            --primary-red-light: #fecaca; /* 浅红色 */
+            --primary-red-dark: #991b1b;  /* 深红色 */
+            
+            /* 灰色调系统 */
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+
+            /* 手机相关颜色 - 使用灰色调 */
+            --phone-c-0: var(--gray-50);   /* 手机背景 */
+            --phone-c-1: var(--gray-100);  /* 状态栏背景 */
+            --phone-c-2: #FFFFFF;          /* 屏幕内容区 */
+            --phone-c-3: var(--gray-50);   /* 列表项背景 */
+            --phone-c-4: var(--primary-red); /* 重点元素 */
+            --phone-c-5: var(--gray-100);  /* 搜索框背景 */
+            --phone-c-6: var(--gray-50);   /* 输入框背景 */
+            --phone-body: var(--gray-400); /* 手机边框颜色 */
+
+            /* 人物相关颜色 - 使用灰色调 */
+            --people-c-0: #FFFFFF;
+            --people-c-1: var(--gray-50);
+            --people-c-2: #FFFFFF;
+            --people-c-3: #FFFFFF;
+            --people-c-4: var(--gray-100);
+            --people-c-5: var(--gray-50);
+            --people-c-6: #FFFFFF;
+            --people-c-7: var(--gray-100);
+            --people-c-8: var(--gray-50);
+            --people-c-9: var(--gray-50);
+
+            /* 左侧分层卡片颜色 - 白色背景 + 主题元素 */
+            --ll-c-0: #FFFFFF;                    /* 白色背景 */
+
+            /* 左下分层卡片颜色 - 白色背景 + 主题元素 */
+            --lbl-c-0: #FFFFFF;                   /* 白色背景 */
+            --lbl-c-1: var(--primary-red);        /* 主红色元素 */
+            --lbl-c-2: var(--gray-400);           /* 灰色元素 */
+            --lbl-c-3: var(--gray-200);           /* 浅灰色元素 */
+
+            /* 右侧分层卡片颜色 - 白色背景 + 灰色元素 */
+            --rl-c-0: #FFFFFF;                    /* 白色背景 */
+            --rl-c-1: var(--gray-100);            /* 灰色元素 */
+        }
+
+        body {
+            margin: 0;
+            padding: 50px;
+            background-color: #f0f2f5;
+            overflow: hidden;
+        }
+
+        .parallax-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: .3s ease-out all;
+            position: relative;
+            perspective: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 性能优化的动画定义 */
+        @keyframes parallax-float {
+
+            0%,
+            100% {
+                transform: translate3d(0, 0px, 0px);
+            }
+
+            25% {
+                transform: translate3d(0, -15px, -20px);
+            }
+
+            50% {
+                transform: translate3d(0, -5px, -40px);
+            }
+
+            75% {
+                transform: translate3d(0, -20px, -10px);
+            }
+        }
+
+        @keyframes depth-move {
+
+            0%,
+            100% {
+                transform: translateZ(0px);
+            }
+
+            50% {
+                transform: translateZ(-30px);
+            }
+        }
+
+        /* 移除旋转动画 */
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translate3d(-50px, 0, 0);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        /* 性能优化的视觉差层次 */
+        .parallax-layer {
+            transform-style: preserve-3d;
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+
+        /* 手机SVG动画 - 最底层 */
+        .phone-svg {
+            animation: parallax-float 8s ease-in-out infinite;
+            z-index: 10;
+            transform: translate3d(0, 0, -50px);
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+
+        /* 人物SVG动画 - 第二层 */
+        .people-svg {
+            animation: parallax-float 10s ease-in-out infinite 1s;
+            z-index: 20;
+            transform: translateZ(-30px);
+        }
+
+        /* 左侧分层卡片动画 - 第三层 */
+        .left-layer-svg {
+            animation: parallax-float 9s ease-in-out infinite 0.5s, slideIn 2s ease-out;
+            z-index: 30;
+            transform: translateZ(-10px);
+        }
+
+        /* 左下分层卡片动画 - 第四层 */
+        .left-bottom-layer {
+            animation: parallax-float 12s ease-in-out infinite 1.5s;
+            z-index: 40;
+            transform: translateZ(10px);
+        }
+
+        /* 右侧分层卡片动画 - 最顶层 */
+        .right-layer {
+            animation: parallax-float 7s ease-in-out infinite 0.8s;
+            z-index: 50;
+            transform: translateZ(30px);
+        }
+
+        /* 背景动画元素 */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-dot {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3F85ED, #75ADFF);
+            animation: parallax-float 15s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        .dot-1 {
+            width: 60px;
+            height: 60px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+            transform: translateZ(-100px);
+        }
+
+        .dot-2 {
+            width: 40px;
+            height: 40px;
+            top: 70%;
+            left: 80%;
+            animation-delay: 3s;
+            transform: translateZ(-80px);
+        }
+
+        .dot-3 {
+            width: 80px;
+            height: 80px;
+            top: 40%;
+            left: 60%;
+            animation-delay: 6s;
+            transform: translateZ(-60px);
+        }
+
+        .dot-4 {
+            width: 30px;
+            height: 30px;
+            top: 20%;
+            left: 90%;
+            animation-delay: 9s;
+            transform: translateZ(-40px);
+        }
+
+        .dot-5 {
+            width: 50px;
+            height: 50px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 12s;
+            transform: translateZ(-20px);
+        }
+
+        /* 深度阴影效果 */
+        .depth-shadow {
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .phone-svg {
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+        }
+
+        .people-svg {
+            filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.35));
+        }
+
+        .left-layer-svg {
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .left-bottom-layer {
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.25));
+        }
+
+        .right-layer {
+            filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.2));
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="parallax-container"
+        style="display:flex;flex-direction:column;justify-content:center;align-items:center;transition:.3s ease-out all;position:relative;perspective:300px;">
+        <div style="height: 30rem; width: 100%; transition: all 0.3s ease-out 0s; transform: rotateX(0.458514deg) rotateY(0.496897deg);"
+            id="main-container">
+            <!-- 手机SVG（替换原屏幕SVG） -->
+            <svg class="phone-svg" width="400" height="728" viewBox="0 0 400 728" fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style="position: absolute; width: 60%; height: 90%; transition: all 0.3s ease-out 0s; transform: translateX(120px) translateY(20px);"
+                alt="banner">
+                <!-- 手机外框（圆角矩形） -->
+                <rect x="20" y="10" width="360" height="708" rx="40" ry="40" fill="var(--phone-body)"></rect>
+                <!-- 手机屏幕区域 -->
+                <rect x="30" y="20" width="340" height="688" rx="30" ry="30" fill="var(--phone-c-0)"></rect>
+
+                <!-- 手机顶部状态栏 -->
+                <rect x="30" y="20" width="340" height="50" rx="30" ry="30" fill="var(--phone-c-1)"></rect>
+
+                <!-- 听筒 -->
+                <rect x="150" y="35" width="100" height="6" rx="3" ry="3" fill="#FFFFFF"></rect>
+
+                <!-- 前置摄像头 -->
+                <circle cx="300" cy="35" r="4" fill="#FFFFFF"></circle>
+
+                <!-- 状态栏图标 -->
+                <circle cx="60" cy="35" r="6" fill="#FD873B"></circle> <!-- 信号 -->
+                <circle cx="80" cy="35" r="6" fill="#FFCD8A"></circle> <!-- 蓝牙 -->
+                <circle cx="100" cy="35" r="6" fill="#91DD9D"></circle> <!-- 电池 -->
+
+                <!-- 手机内容区 - 重新设计 -->
+                
+                <!-- 1. Banner区 -->
+                <rect x="50" y="80" width="300" height="120" rx="12" ry="12" fill="var(--primary-red)"></rect>
+                <rect x="70" y="100" width="260" height="30" rx="4" ry="4" fill="white" opacity="0.8"></rect>
+                <rect x="70" y="140" width="180" height="20" rx="3" ry="3" fill="white" opacity="0.6"></rect>
+                <rect x="260" y="140" width="70" height="20" rx="10" ry="10" fill="white" opacity="0.9"></rect>
+                
+                <!-- 2. 快捷入口区 - 4个方块横排 -->
+                <rect x="60" y="220" width="65" height="65" rx="8" ry="8" fill="var(--phone-c-3)"></rect>
+                <rect x="135" y="220" width="65" height="65" rx="8" ry="8" fill="var(--phone-c-3)"></rect>
+                <rect x="210" y="220" width="65" height="65" rx="8" ry="8" fill="var(--phone-c-3)"></rect>
+                <rect x="285" y="220" width="65" height="65" rx="8" ry="8" fill="var(--phone-c-3)"></rect>
+                
+                <!-- 快捷入口图标 -->
+                <circle cx="92" cy="252" r="12" fill="var(--phone-c-4)"></circle>
+                <circle cx="167" cy="252" r="12" fill="var(--phone-c-4)"></circle>
+                <circle cx="242" cy="252" r="12" fill="var(--phone-c-4)"></circle>
+                <circle cx="317" cy="252" r="12" fill="var(--phone-c-4)"></circle>
+                
+                <!-- 3. 任务列表区 -->
+                <!-- 任务1 -->
+                <rect x="50" y="305" width="300" height="60" rx="8" ry="8" fill="var(--phone-c-2)" stroke="var(--phone-c-3)" stroke-width="1"></rect>
+                <circle cx="70" cy="335" r="15" fill="var(--phone-c-4)"></circle>
+                <rect x="95" y="320" width="180" height="12" rx="2" ry="2" fill="var(--phone-c-4)" opacity="0.8"></rect>
+                <rect x="95" y="340" width="120" height="10" rx="2" ry="2" fill="var(--phone-c-4)" opacity="0.6"></rect>
+                <rect x="285" y="325" width="50" height="20" rx="10" ry="10" fill="var(--phone-c-4)"></rect>
+                
+                <!-- 任务2 -->
+                <rect x="50" y="375" width="300" height="60" rx="8" ry="8" fill="var(--phone-c-2)" stroke="var(--phone-c-3)" stroke-width="1"></rect>
+                <circle cx="70" cy="405" r="15" fill="var(--phone-c-4)"></circle>
+                <rect x="95" y="390" width="160" height="12" rx="2" ry="2" fill="var(--phone-c-4)" opacity="0.8"></rect>
+                <rect x="95" y="410" width="100" height="10" rx="2" ry="2" fill="var(--phone-c-4)" opacity="0.6"></rect>
+                <rect x="285" y="395" width="50" height="20" rx="10" ry="10" fill="var(--phone-c-4)"></rect>
+                
+                <!-- 任务3 -->
+                <rect x="50" y="445" width="300" height="60" rx="8" ry="8" fill="var(--phone-c-2)" stroke="var(--phone-c-3)" stroke-width="1"></rect>
+                <circle cx="70" cy="475" r="15" fill="var(--phone-c-4)"></circle>
+                <rect x="95" y="460" width="140" height="12" rx="2" ry="2" fill="var(--phone-c-4)" opacity="0.8"></rect>
+                <rect x="95" y="480" width="80" height="10" rx="2" ry="2" fill="var(--phone-c-4)" opacity="0.6"></rect>
+                <rect x="285" y="465" width="50" height="20" rx="10" ry="10" fill="var(--phone-c-4)"></rect>
+                
+                <!-- 4. Tab区 -->
+                <rect x="50" y="525" width="300" height="40" rx="6" ry="6" fill="var(--phone-c-3)"></rect>
+                
+                <!-- 4个Tab按钮 -->
+                <rect x="55" y="530" width="70" height="30" rx="4" ry="4" fill="var(--phone-c-4)"></rect>
+                <rect x="130" y="530" width="70" height="30" rx="4" ry="4" fill="var(--phone-c-3)"></rect>
+                <rect x="205" y="530" width="70" height="30" rx="4" ry="4" fill="var(--phone-c-3)"></rect>
+                <rect x="280" y="530" width="65" height="30" rx="4" ry="4" fill="var(--phone-c-3)"></rect>
+                
+                <!-- Tab内容区 -->
+                <rect x="50" y="575" width="300" height="80" rx="6" ry="6" fill="var(--phone-c-2)"></rect>
+                <rect x="70" y="590" width="260" height="15" rx="2" ry="2" fill="var(--phone-c-4)" opacity="0.8"></rect>
+                <rect x="70" y="615" width="200" height="12" rx="2" ry="2" fill="var(--phone-c-4)" opacity="0.6"></rect>
+                <rect x="70" y="635" width="120" height="10" rx="2" ry="2" fill="var(--phone-c-4)" opacity="0.4"></rect>
+                
+                <!-- 手机底部Home键 -->
+                <circle cx="200" cy="680" r="25" fill="white" stroke="var(--phone-c-4)" stroke-width="2"></circle>
+            </svg>
+
+
+            
+        </div>
+    </div>
+
+    <script>
+        // 移除鼠标交互效果，避免图片闪烁
+
+        // 移除图片点击交互效果
+
+        // 自动浮动动画（移除旋转）
+        function startAutoFloat() {
+            const layers = [
+                { element: '.phone-svg', speed: 0.2, depth: -50 },
+                { element: '.people-svg', speed: 0.3, depth: -30 },
+                { element: '.left-layer-svg', speed: 0.4, depth: -10 },
+                { element: '.left-bottom-layer', speed: 0.5, depth: 10 },
+                { element: '.right-layer', speed: 0.6, depth: 30 }
+            ];
+            
+            let time = 0;
+            setInterval(() => {
+                time += 0.02;
+                
+                layers.forEach((layer, index) => {
+                    const elements = document.querySelectorAll(layer.element);
+                    elements.forEach(element => {
+                        const waveX = Math.sin(time + index) * 10 * layer.speed;  // 减少幅度
+                        const waveY = Math.cos(time + index) * 8 * layer.speed;   // 减少幅度
+                        const waveZ = Math.sin(time * 2 + index) * 5 * layer.speed; // 减少幅度
+                        
+                        element.style.transform = `translateX(${waveX}px) translateY(${waveY}px) translateZ(${layer.depth + waveZ}px)`;
+                    });
+                });
+                
+                // 背景圆点波浪效果
+                const dots = document.querySelectorAll('.floating-dot');
+                dots.forEach((dot, index) => {
+                    const dotWaveX = Math.sin(time * 0.5 + index) * 20;  // 减少幅度
+                    const dotWaveY = Math.cos(time * 0.7 + index) * 15;   // 减少幅度
+                    const currentZ = parseInt(dot.style.transform?.match(/translateZ\((-?\d+)px\)/)?.[1] || -100);
+                    
+                    dot.style.transform = `translateX(${dotWaveX}px) translateY(${dotWaveY}px) translateZ(${currentZ}px)`;
+                });
+            }, 50);
+        }
+
+        // 移除波纹效果
+
+        // 初始化动画
+        window.addEventListener('load', function() {
+            // 延迟启动自动浮动
+            setTimeout(startAutoFloat, 2000);
+            
+            // 移除进场动画，图片直接显示
+            const elements = document.querySelectorAll('.phone-svg, .people-svg, .left-layer-svg, .left-bottom-layer, .right-layer');
+            elements.forEach(element => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            });
+        });
+
+        // 添加波纹样式
+        const style = document.createElement('style');
+        style.textContent = `
+            .ripple {
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(63, 133, 237, 0.6) 0%, transparent 70%);
+                transform: translate(-50%, -50%);
+                animation: rippleEffect 0.6s ease-out;
+                pointer-events: none;
+                z-index: 1000;
+            }
+            
+            @keyframes rippleEffect {
+                0% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(10);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

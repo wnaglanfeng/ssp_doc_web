@@ -1,0 +1,39 @@
+{
+  "name": "ssp-doc-web",
+  "version": "1.0.0",
+  "description": "积分墙流量变现技术文档网站",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@types/node": "^20.8.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.0",
+    "fs": "^0.0.1-security",
+    "next": "14.0.0",
+    "postcss": "^8.4.0",
+    "raw-loader": "^4.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
+    "swiper": "^9.4.1",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/highlight.js": "^9.12.4",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "14.0.0"
+  }
+}
