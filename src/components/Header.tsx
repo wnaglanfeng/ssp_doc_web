@@ -47,7 +47,7 @@ const Header: React.FC = () => {
       {/* Logo 区域 */}
       <Link href="/" className="flex items-center space-x-2">
         <img
-          src="http://cdn.yesapi.fastobe.com/snapshot_20260304162516_980035d24db620855685765e2b30fe4b.jpg"
+          src="/images/logo.svg"
           alt="亘元有量 Logo"
           className="w-10 h-10 rounded-full object-cover"
         />

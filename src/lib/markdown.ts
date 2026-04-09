@@ -12,60 +12,74 @@ export interface DocMetadata {
 export const docStructure: DocMetadata[] = [
   {
     slug: 'quick-start',
-    title: '快速开始',
-    description: '快速上手使用亘元有量组件库',
-    category: '设计',
+    title: '快速接入',
+    description: '快速接入',
+    category: '快速接入',
     order: 1
   },
   {
-    slug: 'design-principles',
-    title: '设计原则',
-    description: '了解组件库的设计理念和原则',
-    category: '设计',
+    slug: 'ready-apply-account',
+    title: '申请亘元有量账户',
+    description: '申请亘元有量的账户',
+    category: '准备',
+    order: 1
+  },
+  {
+    slug: 'ready-login-create-media',
+    title: '创建媒体获取appKey',
+    description: '登录并创建媒体账号，获取`appKey`',
+    category: '准备',
     order: 2
   },
   {
-    slug: 'installation',
-    title: '安装',
-    description: '安装和配置组件库的详细步骤',
-    category: '开发',
-    order: 1
-  },
-  {
-    slug: 'color-system',
-    title: '色彩系统',
-    description: '组件库的色彩规范和用法',
-    category: '设计',
+    slug: 'ready-confirm-integration',
+    title: '对接方案确认',
+    description: '确认对接方案',
+    category: '准备',
     order: 3
   },
   {
-    slug: 'typography',
-    title: '字体排版',
-    description: '字体和排版规范',
-    category: '设计',
+    slug: 'ready-special-behavior',
+    title: '异常行为说明（必读）',
+    description: '对于异常行为，包括但不限于刷单等异常行为的说明',
+    category: '准备',
     order: 4
   },
   {
-    slug: 'internationalization',
-    title: '国际化',
-    description: '多语言支持和国际化配置',
-    category: '进阶',
+    slug: 'ready-operation',
+    title: '运营规范说明（必读）',
+    description: '对于运营规范的说明',
+    category: '准备',
+    order: 5
+  },
+  {
+    slug: 'int-server-settings',
+    title: '服务端配置',
+    description: '服务端配置',
+    category: '服务端配置',
     order: 1
   },
   {
-    slug: 'theme-customization',
-    title: '主题定制',
-    description: '自定义主题和样式',
-    category: '进阶',
+    slug: 'int-sdk-android',
+    title: 'Android SDK',
+    description: 'Android SDK接入说明',
+    category: 'SDK方式接入',
+    order: 1
+  },
+  {
+    slug: 'int-sdk-ios',
+    title: 'iOS SDK',
+    description: 'iOS SDK接入说明',
+    category: 'SDK方式接入',
     order: 2
   },
   {
     slug: 'accessibility',
     title: '无障碍访问',
     description: '可访问性支持和最佳实践',
-    category: '进阶',
+    category: '开始接入',
     order: 3
-  }
+  },
 ];
 
 // 动态导入Markdown内容

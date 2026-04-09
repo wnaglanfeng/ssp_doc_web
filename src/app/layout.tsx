@@ -1,6 +1,6 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+// import { Inter } from 'next/font/google'
 import './globals.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
@@ -10,7 +10,7 @@ import Footer from '@/components/Footer'
 // 配置 Font Awesome
 config.autoAddCss = false
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: '亘元有量 - 积分墙流量变现解决方案',
@@ -28,7 +28,8 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={inter.className}>
+      <body>
+      {/* <body>  className={inter.className}> */}
         <div className="min-h-screen bg-white flex flex-col">
           <Header />
           <main className="flex-1">
