@@ -25,6 +25,7 @@
   "sign": "",
 }
 ```
+
 字段 | 类型 | 描述
 --- | --- | ---
 order_id | string | 订单ID，唯一标识一次任务
@@ -47,7 +48,8 @@ sign | string | 签名，用于验证请求参数是否完整
   - 按固定顺序：appSecret + appKey + targetId + taskId + orderId + timeStamp 拼接字符串
   - 对拼接后的字符串进行MD5加密，并将结果转换为大写字符串
 - 签名计算示例：
-```java
+
+```java	
 String unsigned = encoder.encode(appSecret, StandardCharsets.UTF_8) +
         encoder.encode(task.getAppKey(), StandardCharsets.UTF_8) +
         encoder.encode(task.getTargetId(), StandardCharsets.UTF_8) +

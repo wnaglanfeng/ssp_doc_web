@@ -1045,6 +1045,55 @@ pre code {
   overflow-x: auto;
 }
 
+/* 修复代码块可读性 - 亮色主题 */
+.prose pre {
+  background-color: #f8f9fa !important;
+  border: 1px solid #e5e7eb;
+}
+
+.prose pre code {
+  background-color: transparent !important;
+  color: #1f2937 !important;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* 代码高亮颜色 */
+.prose pre code .hljs-keyword,
+.prose pre code .hljs-selector-tag,
+.prose pre code .hljs-literal {
+  color: #d73a49;
+}
+
+.prose pre code .hljs-string,
+.prose pre code .hljs-attr {
+  color: #032f62;
+}
+
+.prose pre code .hljs-number,
+.prose pre code .hljs-built_in {
+  color: #005cc5;
+}
+
+.prose pre code .hljs-comment {
+  color: #6a737d;
+  font-style: italic;
+}
+
+.prose pre code .hljs-function {
+  color: #6f42c1;
+}
+
+/* 行内代码样式 */
+.prose code {
+  background-color: #f3f4f6;
+  color: #e11d48;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
 /* 背景图片设置 */
 background-image: url('/images/hero/bg_hero.png');
 background-size: cover;
