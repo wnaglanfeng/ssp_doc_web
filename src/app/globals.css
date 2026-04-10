@@ -496,12 +496,7 @@ body {
   animation: pingTag 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* 自定义动画效果 */
+/* 自定义动画效果 - 补充 */
 @keyframes gradient-x {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -525,20 +520,7 @@ body {
   50% { transform: translate(10px, -10px) scale(1.1); }
 }
 
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes bounce-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-@keyframes grid-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 20px 20px; }
-}
+/* 注意：spin-slow, bounce-slow, grid-move 已在上方定义 */
 
 @keyframes grid-slow {
   0% { background-position: 0 0; }
@@ -570,15 +552,7 @@ body {
   50% { opacity: 0.5; transform: scale(1.4); }
 }
 
-@keyframes sweep {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-@keyframes pulse-slow {
-  0%, 100% { opacity: 0.1; }
-  50% { opacity: 0.3; }
-}
+/* 注意：sweep, pulse-slow 已在上方定义 */
 
 /* 微妙动画效果 - 左侧区域装饰元素 */
 @keyframes float-subtle-1 {
@@ -1106,4 +1080,3 @@ background: linear-gradient(
   transparent,
   rgba(0,0,0,0.2)
 );
-

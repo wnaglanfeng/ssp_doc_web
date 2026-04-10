@@ -2,6 +2,7 @@
 'use client';
 import './globals.css'
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 const HomePage: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -90,11 +91,14 @@ const HomePage: React.FC = () => {
                 
               </div>
               <div className="flex justify-center items-center h-full" ref={containerRef}>
-                <img
+                <Image
                   src="/images/hero/bg_hero_right.svg"
                   alt="Hero Illustration"
-                  className="h-auto max-w-md object-contain transform-gpu"
-                  style={get3DTransform(0, 0, 30, true)}
+                  width={500}
+                  height={400}
+                  className="h-auto object-contain transform-gpu"
+                  style={get3DTransform(0, 0, 30, true) as React.CSSProperties}
+                  priority
                 />
               </div>
             

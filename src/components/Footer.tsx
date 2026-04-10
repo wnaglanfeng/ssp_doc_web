@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import type { FooterLink } from '@/types';
 
 interface FooterProps {
   activeSection?: string;
@@ -8,23 +9,23 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ activeSection = '首页' }) => {
   // 技术资源链接
-  const techResources = [
-    { name: 'API文档', href: '/doc/api', icon: 'fas fa-code' },
-    { name: 'SDK下载', href: '/download', icon: 'fas fa-download' },
-    { name: '示例代码', href: '/examples', icon: 'fas fa-laptop-code' },
+  const techResources: FooterLink[] = [
+    { name: 'API文档', href: '/doc/quick-start', icon: 'fas fa-code' },
+    { name: 'SDK下载', href: '/doc/quick-start', icon: 'fas fa-download' },
+    { name: '示例代码', href: '/doc/quick-start', icon: 'fas fa-laptop-code' },
     { name: '更新日志', href: '/changelog', icon: 'fas fa-history' },
   ];
 
   // 开发工具链接
-  const devTools = [
-    { name: '在线调试', href: '/playground', icon: 'fas fa-terminal' },
-    { name: '性能测试', href: '/benchmark', icon: 'fas fa-chart-line' },
-    { name: '错误监控', href: '/monitor', icon: 'fas fa-bug' },
-    { name: '数据统计', href: '/analytics', icon: 'fas fa-chart-bar' },
+  const devTools: FooterLink[] = [
+    { name: '在线调试', href: '#', icon: 'fas fa-terminal' },
+    { name: '性能测试', href: '#', icon: 'fas fa-chart-line' },
+    { name: '错误监控', href: '#', icon: 'fas fa-bug' },
+    { name: '数据统计', href: '#', icon: 'fas fa-chart-bar' },
   ];
 
   // 社区链接
-  const communityLinks = [
+  const communityLinks: FooterLink[] = [
     { name: 'GitHub', href: 'https://github.com', icon: 'fab fa-github' },
     { name: 'Stack Overflow', href: 'https://stackoverflow.com', icon: 'fab fa-stack-overflow' },
     { name: 'Discord', href: 'https://discord.com', icon: 'fab fa-discord' },
@@ -32,7 +33,7 @@ const Footer: React.FC<FooterProps> = ({ activeSection = '首页' }) => {
   ];
 
   // 友情链接
-  const friendLinks = [
+  const friendLinks: FooterLink[] = [
     { name: 'React官方', href: 'https://reactjs.org' },
     { name: 'Next.js', href: 'https://nextjs.org' },
     { name: 'TypeScript', href: 'https://typescriptlang.org' },

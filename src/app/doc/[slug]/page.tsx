@@ -6,29 +6,33 @@ import { useParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
-import { getDocContent, getDocMetadata, getDocsByCategory } from '@/lib/markdown';
+import { getDocContent, getDocMetadata, getDocsByCategory, docStructure } from '@/lib/markdown';
+import type { MarkdownComponentProps, TocNode } from '@/types';
 import 'highlight.js/styles/github-dark.css';
 
 // 自定义组件样式
 const MarkdownComponents = {
-  h1: ({ children }: any) => (
+  h1: ({ children }: MarkdownComponentProps) => (
     <h1 className="text-4xl font-bold text-gray-900 mb-6 pt-2">{children}</h1>
   ),
-  h2: ({ children }: any) => (
-    <h2 
-      className="text-2xl font-semibold text-gray-800 mb-4 mt-8 pt-4 border-t border-gray-200"
-      id={children?.toString().toLowerCase().replace(/\s+/g, '-')}
-    >
-      {children}
-    </h2>
-  ),
-  h3: ({ children }: any) => (
+  h2: ({ children }: MarkdownComponentProps) => {
+    const id = children?.toString().toLowerCase().replace(/\s+/g, '-');
+    return (
+      <h2 
+        className="text-2xl font-semibold text-gray-800 mb-4 mt-8 pt-4 border-t border-gray-200"
+        id={id}
+      >
+        {children}
+      </h2>
+    );
+  },
+  h3: ({ children }: MarkdownComponentProps) => (
     <h3 className="text-xl font-medium text-gray-700 mb-3 mt-6">{children}</h3>
   ),
-  p: ({ children }: any) => (
+  p: ({ children }: MarkdownComponentProps) => (
     <p className="text-gray-700 mb-4 text-lg leading-7">{children}</p>
   ),
-  code: ({ children, className }: any) => {
+  code: ({ children, className }: MarkdownComponentProps & { className?: string }) => {
     const isInline = !className;
     if (isInline) {
       return <code className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm">{children}</code>;
@@ -38,6 +42,11 @@ const MarkdownComponents = {
   pre: ({ children }: any) => {
     const codeRef = useRef<HTMLPreElement>(null);
     const [copied, setCopied] = useState(false);
+    
+    // 从 code 元素中提取语言信息
+    const codeElement = children?.props;
+    const className = codeElement?.className || '';
+    const language = className.replace('language-', '') || 'text';
     
     const handleCopy = async () => {
       const codeText = codeRef.current?.textContent || '';
@@ -52,6 +61,10 @@ const MarkdownComponents = {
     
     return (
       <div className="relative group mb-4">
+        {/* 语言标签 */}
+        <div className="absolute left-3 top-0 z-10 px-2 py-1 bg-gray-200 text-gray-600 text-xs rounded-b font-medium">
+          {language}
+        </div>
         <button
           onClick={handleCopy}
           className="absolute right-2 top-2 z-10 px-3 py-1.5 bg-white/90 hover:bg-white text-gray-700 text-xs rounded-md border border-gray-200 shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-200 flex items-center gap-1.5"
@@ -75,36 +88,36 @@ const MarkdownComponents = {
         </button>
         <pre 
           ref={codeRef}
-          className="bg-gray-50 text-gray-800 p-4 rounded-lg overflow-x-auto text-sm border border-gray-200"
+          className="bg-gray-50 text-gray-800 pt-8 pb-4 px-4 rounded-lg overflow-x-auto text-sm border border-gray-200"
         >
           {children}
         </pre>
       </div>
     );
   },
-  ul: ({ children }: any) => (
+  ul: ({ children }: MarkdownComponentProps) => (
     <ul className="list-disc list-inside space-y-2 mb-4 text-gray-700">{children}</ul>
   ),
-  ol: ({ children }: any) => (
+  ol: ({ children }: MarkdownComponentProps) => (
     <ol className="list-decimal list-inside space-y-2 mb-4 text-gray-700">{children}</ol>
   ),
-  li: ({ children }: any) => (
+  li: ({ children }: MarkdownComponentProps) => (
     <li className="ml-4 text-lg">{children}</li>
   ),
-  blockquote: ({ children }: any) => (
+  blockquote: ({ children }: MarkdownComponentProps) => (
     <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-600 bg-blue-50 py-2 rounded-r mb-4">
       {children}
     </blockquote>
   ),
-  table: ({ children }: any) => (
+  table: ({ children }: MarkdownComponentProps) => (
     <table className="min-w-full divide-y divide-gray-200 mb-4">{children}</table>
   ),
-  th: ({ children }: any) => (
+  th: ({ children }: MarkdownComponentProps) => (
     <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
       {children}
     </th>
   ),
-  td: ({ children }: any) => (
+  td: ({ children }: MarkdownComponentProps) => (
     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{children}</td>
   ),
 };
@@ -127,15 +140,10 @@ export default function DocDetailPage() {
   };
 
   // 提取标题用于右侧目录（支持多级标题）
-  const extractHeadings = (markdown: string) => {
+  const extractHeadings = (markdown: string): TocNode[] => {
     // 匹配所有级别的标题（从 ## 到 ######）
     const headingRegex = /^(#{2,6})\s+(.+)$/gm;
-    const headings: { 
-      id: string; 
-      title: string; 
-      level: number; 
-      parentId?: string 
-    }[] = [];
+    const headings: TocNode[] = [];
     
     let match;
     const levelStack: { level: number; id: string }[] = [];
@@ -177,9 +185,9 @@ export default function DocDetailPage() {
   const headings = extractHeadings(content);
 
   // 构建层级化的目录结构
-  const buildTocTree = (headings: any[]) => {
-    const root: any[] = [];
-    const nodeMap = new Map();
+  const buildTocTree = (headings: TocNode[]): TocNode[] => {
+    const root: TocNode[] = [];
+    const nodeMap = new Map<string, TocNode>();
     
     // 创建所有节点
     headings.forEach(heading => {
@@ -207,8 +215,12 @@ export default function DocDetailPage() {
   const tocTree = buildTocTree(headings);
 
   // 创建标题组件的工厂函数
+  interface HeadingProps {
+    children?: React.ReactNode;
+  }
+  
   const createHeadingComponent = (level: number) => {
-    return (props: any) => {
+    return (props: HeadingProps) => {
       const title = props.children?.toString() || '';
       const id = title
         .toLowerCase()
@@ -243,7 +255,7 @@ export default function DocDetailPage() {
   };
 
   // 递归渲染目录树
-  const renderTocTree = (nodes: any[], depth = 0) => {
+  const renderTocTree = (nodes: TocNode[], depth = 0) => {
     return (
       <ul className={depth > 0 ? 'ml-4' : ''}>
         {nodes.map((node) => (

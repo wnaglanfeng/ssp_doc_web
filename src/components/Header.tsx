@@ -3,19 +3,21 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import type { NavItem } from '@/types';
 
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const pathname = usePathname();
   
-  const menuItems = [
+  const menuItems: NavItem[] = [
     { label: '首页', href: '/' },
     { label: '技术文档', href: '/doc/quick-start' },
     { label: '更新日志', href: '/changelog' },
     { label: '关于我们', href: '/about' },
-    { label: '官网', href: 'https://www.example.com', external: true },
-    { label: '后台', href: 'https://admin.example.com', external: true }
+    { label: '官网', href: 'https://www.genyuan.com', external: true },
+    { label: '后台', href: 'https://admin.genyuan.com', external: true }
   ];
 
   const toggleTheme = () => {
@@ -46,10 +48,13 @@ const Header: React.FC = () => {
     <header className="bg-white border-b border-gray-200 py-4 px-8 flex items-center justify-between sticky top-0 z-50 h-16">
       {/* Logo 区域 */}
       <Link href="/" className="flex items-center space-x-2">
-        <img
+        <Image
           src="/images/logo.svg"
           alt="亘元有量 Logo"
-          className="w-10 h-10 rounded-full object-cover"
+          width={40}
+          height={40}
+          className="rounded-full object-cover"
+          priority
         />
         <span className="text-xl font-bold text-red-600">亘元有量</span>
         <span className="text-gray-500 text-sm ml-2">2.4.0</span>
