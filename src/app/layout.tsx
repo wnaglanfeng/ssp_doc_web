@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   },
   description: '高性能SDK集成，支持多平台积分墙接入与智能流量变现。提供Android、iOS、鸿蒙等多平台SDK，助力应用商业化成功。',
   keywords: '积分墙,流量变现,广告聚合,SDK,API,亘元有量,Android SDK,iOS SDK,鸿蒙SDK,广告变现',
-  authors: [{ name: '亘元有量' }],
-  creator: '亘元有量科技有限公司',
-  publisher: '亘元有量科技有限公司',
+  authors: [{ name: '河北亘元网络科技有限公司' }],
+  creator: '河北亘元网络科技有限公司',
+  publisher: '河北亘元网络科技有限公司',
   robots: {
     index: true,
     follow: true,
