@@ -32,23 +32,23 @@ target_id | string | 目标用户ID
 app_key | string | 媒体appKey
 task_id | string | 任务ID
 task_name | string | 任务名称
-task_type | int | 任务类型：
+task_type | int | 任务类型：0-关键词，1-测评，2-其它
 bundle_id | string | 应用包名
 user_reward | int | 用户奖励，单位分
 total_reward | int | 总奖励，单位分
-device_type | int | 设备类型：0-Android，1-iOS
+device_type | int | 设备类型，对应媒体的系统字段：0-Android，1-iOS
 device_info | string | 设备信息，oaid或者imei
 time_stamp | int | 时间戳，单位毫秒
 sign | string | 签名，用于验证请求参数是否完整
 
 ***注意***：
 - 签名计算规则：
-  - 对使用到的appKey、 targetId、 taskId、 orderId、 timeStamp参数进行URL encode编码
-  - 按固定顺序：appKey + targetId + taskId + orderId + timeStamp 拼接字符串
+  - 对使用到的appSecret、appKey、 targetId、 taskId、 orderId、 timeStamp参数进行URL encode编码
+  - 按固定顺序：appSecret + appKey + targetId + taskId + orderId + timeStamp 拼接字符串
   - 对拼接后的字符串进行MD5加密，并将结果转换为大写字符串
 - 签名计算示例：
 ```java
-String unsigned = "efc9d9e32b" +
+String unsigned = encoder.encode(appSecret, StandardCharsets.UTF_8) +
         encoder.encode(task.getAppKey(), StandardCharsets.UTF_8) +
         encoder.encode(task.getTargetId(), StandardCharsets.UTF_8) +
         encoder.encode(task.getTaskId(), StandardCharsets.UTF_8) +

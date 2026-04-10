@@ -49,7 +49,75 @@ dependencies {
 }
 ```
 ## 3. 添加混淆
+在您的`proguard-rules.pro`文件中添加以下规则：
+```proguard
+# SDK 内部类
+-keep class com.gyyl.gysdk.** { *; }
+-keep interface com.gyyl.gysdk.** { *; }
 
+# FastJSON
+-dontwarn com.alibaba.fastjson.**
+-keep class com.alibaba.fastjson.** { *; }
+-keep class com.alibaba.fastjson.annotation.** { *; }
+
+# FastJSON 实体类（JSON 解析需要）
+-keepclassmembers class * {
+    @com.alibaba.fastjson.annotation.JSONField <fields>;
+}
+
+# Retrofit2 保留规则
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Exceptions
+
+# Retrofit Service 接口
+-keepattributes Signature, InnerClasses, EnclosingMethod
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+
+# OkHttp3 保留规则
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-keep class okhttp3.** { *; }
+-keep class okio.** { *; }
+-keep interface okhttp3.** { *; }
+
+# RxJava3 保留规则
+-dontwarn io.reactivex.rxjava3.**
+-keep class io.reactivex.rxjava3.** { *; }
+-keepclassmembers class io.reactivex.rxjava3.** { *; }
+
+# Glide 保留规则
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}
+-keep class com.bumptech.glide.** { *; }
+-dontwarn com.bumptech.glide.**
+
+# Glide 使用的注解
+-keep class com.bumptech.glide.load.annotation.** { *; }
+
+# 微信SDK 保留规则
+-keep class com.tencent.mm.opensdk.** { *; }
+-keep class com.tencent.wxop.** { *; }
+-dontwarn com.tencent.mm.opensdk.**
+-dontwarn com.tencent.wxop.**
+
+# OkDownload
+-keep class com.gyyl.okdownload.** { *; }
+-dontwarn com.gyyl.okdownload.**
+
+# JSR 305 注解保留
+-keepattributes javax.annotation.**
+-keep class javax.annotation.** { *; }
+-dontwarn javax.annotation.**
+
+```
 
 ## 4. 配置权限
 在您的`AndroidManifest.xml`文件中添加以下权限：
@@ -66,7 +134,7 @@ dependencies {
 <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 <uses-permission
     android:name="android.permission.PACKAGE_USAGE_STATS"
     tools:ignore="ProtectedPermissions" />

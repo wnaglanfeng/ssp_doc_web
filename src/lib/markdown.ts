@@ -72,14 +72,7 @@ export const docStructure: DocMetadata[] = [
     description: 'iOS SDK接入说明',
     category: 'SDK方式接入',
     order: 2
-  },
-  {
-    slug: 'accessibility',
-    title: '无障碍访问',
-    description: '可访问性支持和最佳实践',
-    category: '开始接入',
-    order: 3
-  },
+  }
 ];
 
 // 动态导入Markdown内容
