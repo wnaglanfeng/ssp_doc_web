@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     { label: '技术文档', href: '/doc/quick-start' },
     { label: '更新日志', href: '/changelog' },
     { label: '关于我们', href: '/about' },
-    { label: '官网', href: 'https://www.genyuan.com', external: true },
+    { label: '官网', href: 'https://www.fastobe.com', external: true },
     { label: '后台', href: 'https://admin.genyuan.com', external: true }
   ];
 
