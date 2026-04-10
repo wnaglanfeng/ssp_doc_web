@@ -3,11 +3,11 @@
 开发者拥有自己的Android应用，通过接入亘元有量的SDK实现丰富的广告集成。只需要增加一个入口，即可获得丰富的广告资源，进行广告变现。
 
 ## 1. 下载Android SDK
-下载官方SDK，当前最新版为：1.0
+下载官方SDK，当前最新版为：v0.1
 ```text
-https://igenyuan.oss-cn-beijing.aliyuncs.com/ssp/igenyuan-android-sdk-1.0.jar
+https://cdn02.aso.igenyuan.com/sdk/gysdk-v0.1.aar
 ```
-或者直接点击 [下载Android SDK](https://igenyuan.oss-cn-beijing.aliyuncs.com/ssp/igenyuan-android-sdk-1.0.jar)。
+或者直接点击 [下载Android SDK](https://cdn02.aso.igenyuan.com/sdk/gysdk-v0.1.aar)。
 
 ## 2. 项目中引入SDK文件
 将下载的SDK文件gysdk-x.x.aar，引入到您的Android项目的libs目录下，并设置依赖。其中x.x为SDK版本号，根据实际情况修改。
