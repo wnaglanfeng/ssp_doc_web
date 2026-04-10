@@ -1,34 +1,13 @@
-import { Metadata } from 'next';
-import { getDocMetadata } from '@/lib/markdown';
-import DocContent from './DocContent';
+'use client';
 
-// 动态生成 metadata
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const doc = getDocMetadata(params.slug);
-  
-  if (!doc) {
-    return {
-      title: '文档未找到 | 亘元有量',
-      description: '文档不存在或已被移除',
-    };
-  }
-  
-  return {
-    title: `${doc.title} | 亘元有量`,
-    description: doc.description || `${doc.title} - 亘元有量积分墙SDK文档`,
-    openGraph: {
-      title: `${doc.title} | 亘元有量`,
-      description: doc.description || `${doc.title} - 亘元有量积分墙SDK文档`,
-      type: 'article',
-      locale: 'zh_CN',
-    },
-  };
-}
-
-// 页面组件
-export default function DocPage({ params }: { params: { slug: string } }) {
-  return <DocContent slug={params.slug} />;
-}
+import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
+import { getDocContent, getDocMetadata, getDocsByCategory } from '@/lib/markdown';
+import type { MarkdownComponentProps, TocNode } from '@/types';
+import 'highlight.js/styles/github-dark.css';
 
 // 自定义组件样式
 const MarkdownComponents = {
@@ -144,22 +123,18 @@ const MarkdownComponents = {
   ),
 };
 
-export default function DocDetailPage() {
-  const params = useParams();
-  const slug = params.slug as string;
+interface DocContentProps {
+  slug: string;
+}
+
+export default function DocContent({ slug }: DocContentProps) {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('');
-  const [copiedCode, setCopiedCode] = useState<number | null>(null);
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
 
   const currentDoc = getDocMetadata(slug);
   const docsByCategory = getDocsByCategory();
-
-  const handleCopyCode = (index: number) => {
-    setCopiedCode(index);
-    setTimeout(() => setCopiedCode(null), 2000);
-  };
 
   // 提取标题用于右侧目录（支持多级标题）
   const extractHeadings = (markdown: string): TocNode[] => {
@@ -222,12 +197,12 @@ export default function DocDetailPage() {
       if (heading.parentId) {
         const parent = nodeMap.get(heading.parentId);
         if (parent) {
-          parent.children.push(node);
+          parent.children!.push(node!);
         } else {
-          root.push(node);
+          root.push(node!);
         }
       } else {
-        root.push(node);
+        root.push(node!);
       }
     });
     
@@ -296,9 +271,9 @@ export default function DocDetailPage() {
             >
               <span className="truncate block">{node.title}</span>
             </button>
-            {node.children.length > 0 && (
+            {node.children!.length > 0 && (
               <div className="mt-1">
-                {renderTocTree(node.children, depth + 1)}
+                {renderTocTree(node.children!, depth + 1)}
               </div>
             )}
           </li>
@@ -405,7 +380,7 @@ export default function DocDetailPage() {
 
   if (!currentDoc) {
     return (
-      <div className="flex flex-1 w-full items-center justify-center">
+      <div className="flex flex-1 w-full items-center justify-center min-h-[calc(100vh-80px)]">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">文档未找到</h1>
           <p className="text-gray-600 mb-4">文档 "{slug}" 不存在或已被移除。</p>
