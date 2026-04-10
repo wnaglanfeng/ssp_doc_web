@@ -1,21 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
     domains: ['cdn.yesapi.fastobe.com', 'ai-public.mastergo.com', 'mastergo.com'],
     unoptimized: true,
   },
-  webpack: (config, { isServer }) => {
-    // 添加对 .md 文件的处理
-    config.module.rules.push({
-      test: /\.md$/,
-      use: 'raw-loader',
-    });
-    
+  webpack: (config, { dev }) => {
+    // 只在开发模式配置 watchOptions
+    if (dev) {
+      config.watchOptions = {
+        ignored: [
+          '**/System Volume Information/**',
+          '**/node_modules/**',
+          '**/.git/**',
+          '**/.next/**',
+        ],
+      };
+    }
     return config;
   },
+
 }
 
 module.exports = nextConfig

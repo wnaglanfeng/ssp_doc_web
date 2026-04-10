@@ -69,5 +69,5 @@ export interface TocNode {
   title: string;
   level: number;
   parentId?: string;
-  children: TocNode[];
+  children?: TocNode[];
 }

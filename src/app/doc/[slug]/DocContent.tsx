@@ -131,7 +131,6 @@ export default function DocContent({ slug }: DocContentProps) {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('');
-  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
 
   const currentDoc = getDocMetadata(slug);
   const docsByCategory = getDocsByCategory();
@@ -169,7 +168,8 @@ export default function DocContent({ slug }: DocContentProps) {
           id, 
           title, 
           level,
-          parentId 
+          parentId,
+          children: []
         });
         
         levelStack.push({ level, id });
@@ -234,20 +234,12 @@ export default function DocContent({ slug }: DocContentProps) {
         'text-sm mt-2'
       }`;
       
-      const Tag = `h${level}` as keyof JSX.IntrinsicElements;
-      
-      return (
-        <Tag 
-          {...props} 
-          id={id}
-          ref={(el) => {
-            if (el && id) {
-              sectionRefs.current[id] = el;
-            }
-          }}
-          className={className}
-        />
-      );
+      // 使用固定标签避免动态类型导致的复杂类型推断
+      if (level === 2) return <h2 id={id} className={className}>{props.children}</h2>;
+      if (level === 3) return <h3 id={id} className={className}>{props.children}</h3>;
+      if (level === 4) return <h4 id={id} className={className}>{props.children}</h4>;
+      if (level === 5) return <h5 id={id} className={className}>{props.children}</h5>;
+      return <h6 id={id} className={className}>{props.children}</h6>;
     };
   };
 
@@ -293,7 +285,7 @@ export default function DocContent({ slug }: DocContentProps) {
       // 从下往上检查，找到第一个进入视口的标题
       for (let i = headings.length - 1; i >= 0; i--) {
         const heading = headings[i];
-        const element = sectionRefs.current[heading.id];
+        const element = document.getElementById(heading.id);
         if (element) {
           const rect = element.getBoundingClientRect();
           // 当标题顶部进入视口上方1/3位置时激活
@@ -332,7 +324,7 @@ export default function DocContent({ slug }: DocContentProps) {
 
   // 平滑滚动到章节（修复滚动偏移）
   const scrollToSection = (sectionId: string) => {
-    const element = sectionRefs.current[sectionId];
+    const element = document.getElementById(sectionId);
     if (element) {
       // 计算准确的滚动位置，考虑固定头部的高度
       const headerHeight = 80; // Header高度
