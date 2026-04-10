@@ -191,7 +191,7 @@ const Footer: React.FC<FooterProps> = ({ activeSection = '首页' }) => {
         {/* 底部备案信息 */}
         <div className="border-t border-gray-700 pt-4 mt-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
-            <p className="text-gray-500 text-xs">© 2023 亘元有量科技有限公司. All rights reserved.</p>
+            <p className="text-gray-500 text-xs">© 2023 河北亘元网络科技有限公司. All rights reserved.</p>
             <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 text-xs text-gray-500">
               <a 
                 href="http://beian.miit.gov.cn/" 
