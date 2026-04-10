@@ -1,6 +1,5 @@
 // src/app/page.tsx
 'use client';
-import './globals.css'
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
