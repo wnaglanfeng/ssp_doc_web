@@ -5,6 +5,7 @@ const nextConfig = {
   },
   images: {
     domains: ['cdn.yesapi.fastobe.com', 'ai-public.mastergo.com', 'mastergo.com'],
+    unoptimized: true,
   },
   webpack: (config, { isServer }) => {
     // 添加对 .md 文件的处理

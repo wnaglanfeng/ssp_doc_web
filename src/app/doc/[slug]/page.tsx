@@ -46,7 +46,9 @@ const MarkdownComponents = {
     // 从 code 元素中提取语言信息
     const codeElement = children?.props;
     const className = codeElement?.className || '';
-    const language = className.replace('language-', '') || 'text';
+    // 提取语言：支持 "hljs language-java" 或 "hljs java" 格式
+    const langMatch = className.match(/(?:language-|\b)(\w+)$/);
+    const language = langMatch ? langMatch[1] : 'text';
     
     const handleCopy = async () => {
       const codeText = codeRef.current?.textContent || '';
@@ -352,7 +354,10 @@ export default function DocDetailPage() {
   // 加载Markdown内容
   useEffect(() => {
     const loadContent = async () => {
-      setLoading(true);
+      // 先显示旧内容，不立即显示loading，避免闪烁
+      if (!content) {
+        setLoading(true);
+      }
       try {
         const markdownContent = await getDocContent(slug);
         setContent(markdownContent);
@@ -366,9 +371,10 @@ export default function DocDetailPage() {
     loadContent();
   }, [slug]);
 
-  if (loading) {
+  // 首次加载显示loading，切换文档时不显示（保持旧内容可见）
+  if (loading && !content) {
     return (
-      <div className="flex flex-1 w-full items-center justify-center">
+      <div className="flex flex-1 w-full items-center justify-center min-h-[calc(100vh-80px)]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
           <p className="text-gray-600">加载文档中...</p>
@@ -392,9 +398,9 @@ export default function DocDetailPage() {
   }
 
   return (
-    <div className="flex flex-1 w-full">
-      {/* 左侧导航 */}
-      <aside className="w-72 bg-white border-r border-gray-200 h-[calc(100vh-80px)] overflow-y-auto sticky top-20">
+    <div className="flex flex-1 w-full min-h-[calc(100vh-80px)]">
+      {/* 左侧导航 - 使用固定高度避免切换时重算 */}
+      <aside className="w-72 bg-white border-r border-gray-200 h-[calc(100vh-80px)] overflow-y-auto sticky top-20 flex-shrink-0">
         <div className="pl-4 pr-2 py-4">
           {Object.entries(docsByCategory).map(([category, docs]) => (
             <div key={category} className="mb-6">
@@ -423,9 +429,12 @@ export default function DocDetailPage() {
       </aside>
 
       {/* 主要内容 */}
-      <main className="flex-1 p-8 overflow-y-auto">
+      <main className="flex-1 p-8 overflow-y-auto min-h-[calc(100vh-80px)]">
         <div className="max-w-4xl mx-auto">
-          <article className="prose prose-lg max-w-none">
+          <article 
+            className="prose prose-lg max-w-none transition-opacity duration-300"
+            style={{ opacity: loading ? 0.6 : 1 }}
+          >
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeHighlight]}
@@ -445,8 +454,8 @@ export default function DocDetailPage() {
         </div>
       </main>
 
-      {/* 右侧目录 - 支持多级层级显示 */}
-      <aside className="w-80 bg-white border-l border-gray-200 sticky top-20 self-start h-[calc(100vh-80px)] overflow-y-auto">
+      {/* 右侧目录 - 使用固定高度避免切换时重算 */}
+      <aside className="w-80 bg-white border-l border-gray-200 sticky top-20 self-start h-[calc(100vh-80px)] overflow-y-auto flex-shrink-0">
         <div className="p-6">
           <h3 className="font-semibold text-gray-900 mb-4 text-lg">本页目录</h3>
           {tocTree.length > 0 ? (

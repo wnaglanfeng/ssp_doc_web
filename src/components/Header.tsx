@@ -5,6 +5,9 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faLanguage, faMoon, faSun, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import type { NavItem } from '@/types';
 
 const Header: React.FC = () => {
@@ -74,7 +77,7 @@ const Header: React.FC = () => {
                   className="!rounded-button whitespace-nowrap px-1 h-16 flex items-center text-sm font-medium transition-colors text-gray-700 hover:text-red-600"
                 >
                   {item.label}
-                  <i className="fas fa-external-link-alt ml-1 text-xs"></i>
+                  <FontAwesomeIcon icon={faExternalLinkAlt} className="ml-1 text-xs" />
                 </a>
               );
             } else {
@@ -101,18 +104,18 @@ const Header: React.FC = () => {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 hover:text-red-600"
+            className="text-gray-700 hover:text-red-600 text-lg"
           >
-            <i className="fab fa-github"></i>
+            <FontAwesomeIcon icon={faGithub} />
           </a>
-          <button className="text-gray-700 hover:text-red-600">
-            <i className="fas fa-language"></i>
+          <button className="text-gray-700 hover:text-red-600 text-lg">
+            <FontAwesomeIcon icon={faLanguage} />
           </button>
           <button
             onClick={toggleTheme}
-            className="text-gray-700 hover:text-red-600"
+            className="text-gray-700 hover:text-red-600 text-lg"
           >
-            <i className={`fas ${isDarkMode ? 'fa-sun' : 'fa-moon'}`}></i>
+            <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
           </button>
         </div>
       </div>

@@ -1,35 +1,61 @@
 'use client';
 
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faCode, faDownload, faLaptopCode, faHistory, faTerminal, 
+  faChartLine, faBug, faChartBar, faBlog, faEnvelope, faPhone, faMapMarkerAlt 
+} from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faStackOverflow, faDiscord } from '@fortawesome/free-brands-svg-icons';
 import type { FooterLink } from '@/types';
+import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 interface FooterProps {
   activeSection?: string;
 }
 
+// 图标映射
+const iconMap: Record<string, IconDefinition> = {
+  'fa-code': faCode,
+  'fa-download': faDownload,
+  'fa-laptop-code': faLaptopCode,
+  'fa-history': faHistory,
+  'fa-terminal': faTerminal,
+  'fa-chart-line': faChartLine,
+  'fa-bug': faBug,
+  'fa-chart-bar': faChartBar,
+  'fa-blog': faBlog,
+  'fa-envelope': faEnvelope,
+  'fa-phone': faPhone,
+  'fa-map-marker-alt': faMapMarkerAlt,
+  'fa-github': faGithub,
+  'fa-stack-overflow': faStackOverflow,
+  'fa-discord': faDiscord,
+};
+
 const Footer: React.FC<FooterProps> = ({ activeSection = '首页' }) => {
   // 技术资源链接
   const techResources: FooterLink[] = [
-    { name: 'API文档', href: '/doc/quick-start', icon: 'fas fa-code' },
-    { name: 'SDK下载', href: '/doc/quick-start', icon: 'fas fa-download' },
-    { name: '示例代码', href: '/doc/quick-start', icon: 'fas fa-laptop-code' },
-    { name: '更新日志', href: '/changelog', icon: 'fas fa-history' },
+    { name: 'API文档', href: '/doc/quick-start', icon: 'fa-code' },
+    { name: 'SDK下载', href: '/doc/quick-start', icon: 'fa-download' },
+    { name: '示例代码', href: '/doc/quick-start', icon: 'fa-laptop-code' },
+    { name: '更新日志', href: '/changelog', icon: 'fa-history' },
   ];
 
   // 开发工具链接
   const devTools: FooterLink[] = [
-    { name: '在线调试', href: '#', icon: 'fas fa-terminal' },
-    { name: '性能测试', href: '#', icon: 'fas fa-chart-line' },
-    { name: '错误监控', href: '#', icon: 'fas fa-bug' },
-    { name: '数据统计', href: '#', icon: 'fas fa-chart-bar' },
+    { name: '在线调试', href: '#', icon: 'fa-terminal' },
+    { name: '性能测试', href: '#', icon: 'fa-chart-line' },
+    { name: '错误监控', href: '#', icon: 'fa-bug' },
+    { name: '数据统计', href: '#', icon: 'fa-chart-bar' },
   ];
 
   // 社区链接
   const communityLinks: FooterLink[] = [
-    { name: 'GitHub', href: 'https://github.com', icon: 'fab fa-github' },
-    { name: 'Stack Overflow', href: 'https://stackoverflow.com', icon: 'fab fa-stack-overflow' },
-    { name: 'Discord', href: 'https://discord.com', icon: 'fab fa-discord' },
-    { name: '技术博客', href: '/blog', icon: 'fas fa-blog' },
+    { name: 'GitHub', href: 'https://github.com', icon: 'fa-github' },
+    { name: 'Stack Overflow', href: 'https://stackoverflow.com', icon: 'fa-stack-overflow' },
+    { name: 'Discord', href: 'https://discord.com', icon: 'fa-discord' },
+    { name: '技术博客', href: '/blog', icon: 'fa-blog' },
   ];
 
   // 友情链接
@@ -73,7 +99,7 @@ const Footer: React.FC<FooterProps> = ({ activeSection = '首页' }) => {
                     href={resource.href}
                     className="flex items-center space-x-2 text-gray-400 hover:text-red-400 transition-colors text-sm"
                   >
-                    <i className={`${resource.icon} w-4 text-center`}></i>
+                    <FontAwesomeIcon icon={iconMap[resource.icon || 'fa-code']} className="w-4 text-center" />
                     <span>{resource.name}</span>
                   </a>
                 ))}
@@ -92,7 +118,7 @@ const Footer: React.FC<FooterProps> = ({ activeSection = '首页' }) => {
                   className="flex items-center space-x-3 p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all group"
                 >
                   <div className="w-8 h-8 rounded-md bg-red-600 flex items-center justify-center">
-                    <i className={`${tool.icon} text-white text-sm`}></i>
+                    <FontAwesomeIcon icon={iconMap[tool.icon || 'fa-terminal']} className="text-white text-sm" />
                   </div>
                   <div>
                     <span className="text-white group-hover:text-red-300 transition-colors font-medium">
@@ -115,7 +141,7 @@ const Footer: React.FC<FooterProps> = ({ activeSection = '首页' }) => {
                   href={link.href}
                   className="flex items-center space-x-2 p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-all"
                 >
-                  <i className={`${link.icon} text-red-400`}></i>
+                  <FontAwesomeIcon icon={iconMap[link.icon || 'fa-github']} className="text-red-400" />
                   <span className="text-white font-medium">{link.name}</span>
                 </a>
               ))}
@@ -126,15 +152,15 @@ const Footer: React.FC<FooterProps> = ({ activeSection = '首页' }) => {
               <h4 className="text-white font-semibold text-sm uppercase tracking-wider">联系我们</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex items-center space-x-2">
-                  <i className="fas fa-envelope text-red-400"></i>
+                  <FontAwesomeIcon icon={faEnvelope} className="text-red-400" />
                   <span className="text-gray-400">contact@genyuan.com</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <i className="fas fa-phone text-red-400"></i>
+                  <FontAwesomeIcon icon={faPhone} className="text-red-400" />
                   <span className="text-gray-400">400-888-8888</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <i className="fas fa-map-marker-alt text-red-400"></i>
+                  <FontAwesomeIcon icon={faMapMarkerAlt} className="text-red-400" />
                   <span className="text-gray-400">北京市朝阳区科技园区</span>
                 </div>
               </div>
