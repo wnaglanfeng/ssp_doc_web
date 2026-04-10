@@ -3,6 +3,8 @@
 import './globals.css'
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRocket, faPaintBrush, faCode } from '@fortawesome/free-solid-svg-icons';
 
 const HomePage: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -110,29 +112,29 @@ const HomePage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
                 <div className="text-red-600 text-3xl mb-4">
-                  <i className="fas fa-rocket"></i>
+                  <FontAwesomeIcon icon={faRocket} />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">快速开发</h3>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">快速集成</h3>
                 <p className="text-gray-700">
-                  丰富的预制组件，帮助您快速搭建界面原型，缩短开发周期。
+                  5分钟完成SDK接入，支持Android、iOS、鸿蒙等多平台，降低开发成本。
                 </p>
               </div>
               <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
                 <div className="text-red-600 text-3xl mb-4">
-                  <i className="fas fa-paint-brush"></i>
+                  <FontAwesomeIcon icon={faPaintBrush} />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">设计一致</h3>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">高转化率</h3>
                 <p className="text-gray-700">
-                  遵循统一的设计规范，确保应用界面的一致性和专业性。
+                  智能广告匹配算法，优化用户体验，提升广告转化率和收益。
                 </p>
               </div>
               <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
                 <div className="text-red-600 text-3xl mb-4">
-                  <i className="fas fa-code"></i>
+                  <FontAwesomeIcon icon={faCode} />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">易于定制</h3>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">数据透明</h3>
                 <p className="text-gray-700">
-                  灵活的配置选项和主题系统，轻松适配不同的品牌需求。
+                  实时数据报表，收益明细一目了然，支持自定义数据导出。
                 </p>
               </div>
             </div>
@@ -156,25 +158,54 @@ const HomePage: React.FC = () => {
           </section>
 
           {/* Quick Start Section */}
-                    <section className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm max-w-6xl mx-auto">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-6">快速开始</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-gray-50 rounded-lg p-6">
-                                <h3 className="text-lg font-semibold text-gray-800 mb-3">安装</h3>
-                                <p className="text-gray-700 mb-4">使用 npm 或 yarn 快速安装组件库</p>
-                                <pre className="bg-gray-900 text-gray-100 px-3 py-2 rounded text-sm overflow-x-auto">
-                                    <code>{'npm install 亘元有量'}</code>
-                                </pre>
-                            </div>
-                            <div className="bg-gray-50 rounded-lg p-6">
-                                <h3 className="text-lg font-semibold text-gray-800 mb-3">使用</h3>
-                                <p className="text-gray-700 mb-4">引入组件并开始使用</p>
-                                <pre className="bg-gray-900 text-gray-100 px-3 py-2 rounded text-sm overflow-x-auto">
-                                    <code>{'import { Button } from \'亘元有量\''}</code>
-                                </pre>
-                            </div>
-                        </div>
-                    </section>
+          <section className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm max-w-6xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">快速开始</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* 第一步：下载 */}
+              <div className="bg-gray-50 rounded-lg p-6 relative">
+                <div className="absolute -top-3 -left-3 w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 pl-4">下载 SDK</h3>
+                <p className="text-gray-700 mb-4">获取最新版 SDK 开发包</p>
+                <a 
+                  href="https://cdn02.aso.igenyuan.com/sdk/gysdk-v0.1.aar" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                >
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  下载 gysdk-v0.1.aar
+                </a>
+              </div>
+              {/* 第二步：配置 */}
+              <div className="bg-gray-50 rounded-lg p-6 relative">
+                <div className="absolute -top-3 -left-3 w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 pl-4">配置初始化</h3>
+                <p className="text-gray-700 mb-4">在 Application 中初始化 SDK</p>
+                <pre className="bg-gray-900 text-gray-100 px-3 py-2 rounded text-sm overflow-x-auto whitespace-pre-wrap break-all">
+                  <code>{`GYSdk.init(context, "YOUR_APP_ID");`}</code>
+                </pre>
+              </div>
+              {/* 第三步：启动 */}
+              <div className="bg-gray-50 rounded-lg p-6 relative">
+                <div className="absolute -top-3 -left-3 w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 pl-4">启动积分墙</h3>
+                <p className="text-gray-700 mb-4">调用接口展示积分墙</p>
+                <pre className="bg-gray-900 text-gray-100 px-3 py-2 rounded text-sm overflow-x-auto whitespace-pre-wrap break-all">
+                  <code>{`GYSdk.showOfferWall(context);`}</code>
+                </pre>
+              </div>
+            </div>
+            <div className="mt-6 text-center">
+              <a href="/doc/quick-start" className="inline-flex items-center text-red-600 hover:text-red-700 font-medium">
+                查看完整接入文档
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </section>
         </div>
       </div>
     </div>
