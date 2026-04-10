@@ -139,23 +139,6 @@ const HomePage: React.FC = () => {
             </div>
           </section>
 
-          {/* Latest Updates Section */}
-          <section className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm max-w-6xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">最新动态</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="border-l-4 border-red-600 pl-4">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">版本 2.4.0 发布</h3>
-                <p className="text-gray-700 mb-2">新增了 12 个组件，优化了主题系统性能。</p>
-                <p className="text-sm text-gray-500">2026-02-28</p>
-              </div>
-              <div className="border-l-4 border-red-600 pl-4">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">设计资源更新</h3>
-                <p className="text-gray-700 mb-2">新增 Figma 设计模板和图标库下载。</p>
-                <p className="text-sm text-gray-500">2026-02-15</p>
-              </div>
-            </div>
-          </section>
-
           {/* Quick Start Section */}
           <section className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm max-w-6xl mx-auto">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">快速开始</h2>
