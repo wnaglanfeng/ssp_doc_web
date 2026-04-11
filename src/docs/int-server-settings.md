@@ -1,20 +1,23 @@
 # 服务端配置
 
-## 1. 与用户的分成比例设置
+## 1. 简要描述
+- 接口统一使用的编码为：UTF-8
+- 当我们收到用户做单成功后，我们会实时反馈给你们服务器。
+- 需要开发者提供一个自己应用获取用户领奖订单反馈地址，接口接收数据的方式：POST
+- 接口采用http协议 post json数据 body 是一个json数据
 
-## 2. 服务端回调地址设置
-- 目前SDK不支持提现系统，所以必须接入自有提现系统。
-- 在您的后台服务中添加可直接访问的POST请求地址，用于接收任务成功回调。
-- 接收的参数为String类型的JSON数据，请自行解析妥善存储。
-### 回调参数
-示例数据：
+## 2. 接口描述
+当用户完成任务后，会根据你们提供的反馈地址，加上相关的参数（具体参数见参数返回表），回调给你们服务器
+
+## 3. 推送参数表
+### 3.1 示例数据：
 ```json
 {
   "order_id": "b527074957b14a67b8a57d75c1cc560c",
   "target_id": "000000",
   "app_key": "",
   "task_id": "1e3d649471954e5faed7955bac87b09d",
-  "task_name": "果冻试玩",
+  "task_name": "方糖试玩",
   "task_type": 0,
   "bundle_id": "com.mobaso.bxsw",
   "user_reward": 10,
@@ -25,7 +28,7 @@
   "sign": "",
 }
 ```
-
+### 3.2 参数描述：
 字段 | 类型 | 描述
 --- | --- | ---
 order_id | string | 订单ID，唯一标识一次任务
@@ -42,12 +45,11 @@ device_info | string | 设备信息，oaid或者imei
 time_stamp | int | 时间戳，单位毫秒
 sign | string | 签名，用于验证请求参数是否完整
 
-***注意***：
-- 签名计算规则：
-  - 对使用到的appSecret、appKey、 targetId、 taskId、 orderId、 timeStamp参数进行URL encode编码
-  - 按固定顺序：appSecret + appKey + targetId + taskId + orderId + timeStamp 拼接字符串
-  - 对拼接后的字符串进行MD5加密，并将结果转换为大写字符串
-- 签名计算示例：
+### 3.3 参数签名规则：
+- 对使用到的appSecret、appKey、 targetId、 taskId、 orderId、 timeStamp参数进行URL encode编码
+- 按固定顺序：appSecret + appKey + targetId + taskId + orderId + timeStamp 拼接字符串
+- 对拼接后的字符串进行MD5加密，并将结果转换为大写字符串
+| 签名计算示例：
 
 ```java	
 String unsigned = encoder.encode(appSecret, StandardCharsets.UTF_8) +
@@ -61,5 +63,9 @@ String sign = MD5.create().digestHex(unsigned).toUpperCase(); // 此处使用的
 
 ```
 
-### 返回结果
-只需成功时响应http状态码200即可。
+### 3.4 返回结果
+
+| 状态码 | 描述 |
+| --- | --- |
+| 200 | 成功 |
+

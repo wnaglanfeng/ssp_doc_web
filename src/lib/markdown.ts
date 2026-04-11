@@ -72,6 +72,20 @@ export const docStructure: DocMetadata[] = [
     description: 'iOS SDK接入说明',
     category: 'SDK方式接入',
     order: 2
+  },
+  {
+    slug: 'error-codes',
+    title: '错误码说明',
+    description: 'SDK错误码及排查方法',
+    category: '参考',
+    order: 1
+  },
+  {
+    slug: 'changelog',
+    title: '更新日志',
+    description: 'SDK版本更新历史',
+    category: '参考',
+    order: 2
   }
 ];
 
