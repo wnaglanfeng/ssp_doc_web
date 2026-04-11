@@ -8,7 +8,7 @@ import { faEnvelope, faPhone, faRocket, faShieldAlt, faCode, faUsers, faComment 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-16">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 页面标题 */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-6">
@@ -120,7 +120,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">客服热线</p>
-                <p className="text-gray-900">400-888-8888</p>
+                <p className="text-gray-900">18931880683</p>
               </div>
             </div>
             <div className="flex items-center">
