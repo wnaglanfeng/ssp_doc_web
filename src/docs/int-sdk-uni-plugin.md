@@ -9,7 +9,7 @@
 
 ### 1. 第一步：将插件添加到项目中
 将示例项目中的`nativeplugins/GYSdk`目录全部复制到自己的项目中。
-![appKey](/images/sdk/uni_plugin_copy.png)
+![uni native plugin](/images/sdk/uni_plugin_copy.png)
 
 ### 2. 第二步：使用插件
 在需要使用SDK的地方，调用插件的方法：
@@ -39,4 +39,4 @@ GYSdk.start({
         }
 })
 ```
-具体的配置参数详见 [配置参数](int-sdk-android#6.配置参数)
+具体的配置参数详见 [配置参数](int-sdk-android#6-配置参数)
