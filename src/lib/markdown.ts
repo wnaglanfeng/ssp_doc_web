@@ -74,6 +74,13 @@ export const docStructure: DocMetadata[] = [
     order: 2
   },
   {
+    slug: 'int-sdk-uni-plugin',
+    title: 'Uni-app native插件',
+    description: 'Uni-app native插件方式接入',
+    category: 'SDK方式接入',
+    order: 3
+  },
+  {
     slug: 'error-codes',
     title: '错误码说明',
     description: 'SDK错误码及排查方法',

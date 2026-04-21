@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android:6.8.24'
 }
 ```
-## 3. 添加混淆
+## 4. 添加混淆
 在您的`proguard-rules.pro`文件中添加以下规则：
 ```proguard
 # SDK 内部类
@@ -119,7 +119,7 @@ dependencies {
 
 ```
 
-## 4. 配置权限
+## 5. 配置权限
 在您的`AndroidManifest.xml`文件中添加以下权限：
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
@@ -139,7 +139,7 @@ dependencies {
     android:name="android.permission.PACKAGE_USAGE_STATS"
     tools:ignore="ProtectedPermissions" />
 ```
-## 5. 配置参数
+## 6. 配置参数
 
 ```java
 GYOption options = new GYOption();
@@ -161,12 +161,12 @@ options.setTitle("");
 options.setWxAppId("");
 ```
 
-## 6. 启动SDK
+## 7. 启动SDK
 ```java
 GYSdk.start(context, options);
 ```
 
-## 7. 常见问题说明
+## 8. 常见问题说明
 ### 1. 为兼容更多版本的手机，官方SDK的最低版本为API21，对应Android 5.0 (Lollipop)。
 ### 2. 如果您项目的`targetSdkVersion`大于28，请为`AndroidManifest`文件中的`<application>`节点添加属性`android:requestLegacyExternalStorage="true"`，以确保在Android 10及以上版本上正常运行。
 ### 3. Android 13 以下sdk中需要使用到的动态权限包括`READ_EXTERNAL_STORAGE`及`READ_PHONE_STATE`，调用`GYSdk.start()`方法时sdk会去申请这两个权限
