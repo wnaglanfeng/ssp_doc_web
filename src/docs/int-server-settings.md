@@ -25,6 +25,7 @@
   "device_type": 0,
   "device_info": "aa9ebaa2-856c-4bdf-b028-8ed5cd1f46fd",
   "time_stamp": 1775578442134,
+  "revoke": false,
   "sign": "",
 }
 ```
@@ -44,6 +45,9 @@ device_type | int | 设备类型，对应媒体的系统字段：0-Android，1-i
 device_info | string | 设备信息，oaid或者imei
 time_stamp | int | 时间戳，单位毫秒
 sign | string | 签名，用于验证请求参数是否完整
+revoke | bool | 类型：空或者false-正常发放，true-复审撤回
+revoke_reason | string | 复审撤回时的原因说明(最多20个汉字)
+
 
 ### 3.3 参数签名规则：
 - 对使用到的appSecret、appKey、 targetId、 taskId、 orderId、 timeStamp参数进行URL encode编码
@@ -69,3 +73,7 @@ String sign = MD5.create().digestHex(unsigned).toUpperCase(); // 此处使用的
 | --- | --- |
 | 200 | 成功 |
 
+## 4 注意
+### 4.1 回调参数中的`revoke`代表：是否复审撤回。等于`true`的时候**必须收回已发放的奖励**
+- 通常情况下是`false`或者空，正常发放奖励；
+- 平台复审数据有误的时候，会再次回调此接口，`revoke`为`true`，**必须收回奖励**。
