@@ -81,18 +81,32 @@ export const docStructure: DocMetadata[] = [
     order: 3
   },
   {
+    slug: 'int-sdk-uni-uts-plugin',
+    title: 'Uni-app-x uts 插件',
+    description: 'Uni-app-x UTS插件方式接入',
+    category: 'SDK方式接入',
+    order: 4
+  },
+  {
+    slug: 'reference-oaid',
+    title: '设备标识获取指南',
+    description: 'Android OAID、iOS IDFA 及鸿蒙 OAID 获取方式说明',
+    category: '参考',
+    order: 1
+  },
+  {
     slug: 'error-codes',
     title: '错误码说明',
     description: 'SDK错误码及排查方法',
     category: '参考',
-    order: 1
+    order: 2
   },
   {
     slug: 'changelog',
     title: '更新日志',
     description: 'SDK版本更新历史',
     category: '参考',
-    order: 2
+    order: 3
   }
 ];
 
