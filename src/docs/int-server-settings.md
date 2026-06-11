@@ -13,37 +13,42 @@
 ### 3.1 示例数据：
 ```json
 {
-  "order_id": "b527074957b14a67b8a57d75c1cc560c",
-  "target_id": "000000",
-  "app_key": "",
-  "task_id": "1e3d649471954e5faed7955bac87b09d",
-  "task_name": "方糖试玩",
-  "task_type": 0,
-  "bundle_id": "com.mobaso.bxsw",
-  "user_reward": 10,
-  "total_reward": 100,
-  "device_type": 0,
-  "device_info": "aa9ebaa2-856c-4bdf-b028-8ed5cd1f46fd",
-  "time_stamp": 1775578442134,
+  "orderId": "b527074957b14a67b8a57d75c1cc560c",
+  "targetId": "000000",
+  "appKey": "",
+  "taskId": "1e3d649471954e5faed7955bac87b09d",
+  "taskName": "方糖试玩",
+  "taskType": 0,
+  "bundleId": "com.mobaso.bxsw",
+  "userReward": 10,
+  "totalRReward": 100,
+  "deviceType": 0,
+  "deviceInfo": "aa9ebaa2-856c-4bdf-b028-8ed5cd1f46fd",
+  "timestamp": 1775578442134,
+  "revoked": false,
+  "revokedReason": "",
   "sign": "",
 }
 ```
 ### 3.2 参数描述：
 字段 | 类型 | 描述
 --- | --- | ---
-order_id | string | 订单ID，唯一标识一次任务
-target_id | string | 目标用户ID
-app_key | string | 媒体appKey
-task_id | string | 任务ID
-task_name | string | 任务名称
-task_type | int | 任务类型：0-关键词，1-测评，2-其它
-bundle_id | string | 应用包名
-user_reward | int | 用户奖励，单位分
-total_reward | int | 总奖励，单位分
-device_type | int | 设备类型，对应媒体的系统字段：0-Android，1-iOS
-device_info | string | 设备信息，oaid或者imei
-time_stamp | int | 时间戳，单位毫秒
+orderId | string | 订单ID，唯一标识一次任务
+targetId | string | 目标用户ID
+appKey | string | 媒体appKey
+taskId | string | 任务ID
+taskName | string | 任务名称
+taskType | int | 任务类型：0-关键词，1-测评，2-其它
+bundleId | string | 应用包名
+userReward | int | 用户奖励，单位分
+totalReward | int | 总奖励，单位分
+deviceType | int | 设备类型，对应媒体的系统字段：0-Android，1-iOS
+deviceInfo | string | 设备信息，oaid或者imei
+timestamp | int | 时间戳，单位毫秒
 sign | string | 签名，用于验证请求参数是否完整
+revoked | bool | 类型：空或者false-正常发放，true-复审撤回
+revokedReason | string | 复审撤回时的原因说明(最多20个汉字)
+
 
 ### 3.3 参数签名规则：
 - 对使用到的appSecret、appKey、 targetId、 taskId、 orderId、 timeStamp参数进行URL encode编码
@@ -69,3 +74,7 @@ String sign = MD5.create().digestHex(unsigned).toUpperCase(); // 此处使用的
 | --- | --- |
 | 200 | 成功 |
 
+## 4 注意
+### 4.1 回调参数中的`revoked`代表：是否复审撤回。等于`true`的时候**必须收回已发放的奖励**
+- 通常情况下是`false`或者空，正常发放奖励；
+- 平台复审数据有误的时候，会再次回调此接口，`revoked`为`true`，**必须收回奖励**。
