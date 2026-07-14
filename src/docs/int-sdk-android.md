@@ -137,6 +137,7 @@ GYOption options = new GYOption();
 // 配置appKey，必填
 options.setAppKey("");
 // 配置oaid，和imei必须至少有一个，推荐oaid
+// OAID 获取方式详见文档：OAID 获取指南
 options.setOaid("");
 // 配置imei，和oaid必须至少有一个，推荐oaid
 options.setImei("");
