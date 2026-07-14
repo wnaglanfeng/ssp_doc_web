@@ -25,8 +25,6 @@
   "deviceType": 0,
   "deviceInfo": "aa9ebaa2-856c-4bdf-b028-8ed5cd1f46fd",
   "timestamp": 1775578442134,
-  "revoked": false,
-  "revokedReason": "",
   "sign": "",
 }
 ```
@@ -46,8 +44,6 @@ deviceType | int | 设备类型，对应媒体的系统字段：0-Android，1-iO
 deviceInfo | string | 设备信息，oaid或者imei
 timestamp | int | 时间戳，单位毫秒
 sign | string | 签名，用于验证请求参数是否完整
-revoked | bool | 类型：空或者false-正常发放，true-复审撤回
-revokedReason | string | 复审撤回时的原因说明(最多20个汉字)
 
 
 ### 3.3 参数签名规则：
@@ -73,8 +69,3 @@ String sign = MD5.create().digestHex(unsigned).toUpperCase(); // 此处使用的
 | 状态码 | 描述 |
 | --- | --- |
 | 200 | 成功 |
-
-## 4 注意
-### 4.1 回调参数中的`revoked`代表：是否复审撤回。等于`true`的时候**必须收回已发放的奖励**
-- 通常情况下是`false`或者空，正常发放奖励；
-- 平台复审数据有误的时候，会再次回调此接口，`revoked`为`true`，**必须收回奖励**。
