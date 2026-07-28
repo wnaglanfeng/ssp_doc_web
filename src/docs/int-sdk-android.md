@@ -18,6 +18,8 @@ dependencies {
     // 亘元有量sdk aar文件，根据实际文件名修改
     implementation files('libs/gysdk-x.x.aar') 
 
+    implementation "androidx.core:core-ktx:1.10.1"
+
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.appcompat.swiperefreshlayout:1.2.0'
     implementation 'com.google.android.material:material:1.12.0'
@@ -112,6 +114,14 @@ dependencies {
 -keepattributes javax.annotation.**
 -keep class javax.annotation.** { *; }
 -dontwarn javax.annotation.**
+
+# ==============================================
+# AndroidX & Support Library
+# ==============================================
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }
+-dontwarn androidx.**
+
 
 ```
 
