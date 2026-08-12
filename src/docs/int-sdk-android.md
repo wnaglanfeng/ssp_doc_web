@@ -3,7 +3,8 @@
 开发者拥有自己的Android应用，通过接入亘元有量的SDK实现丰富的广告集成。只需要增加一个入口，即可获得丰富的广告资源，进行广告变现。
 
 ## 1. 下载Android SDK
-下载官方SDK示例项目：[github](https://github.com/gbohao/gysdk-android-demo)
+最新sdk版本：v0.8+28
+> 下载官方SDK示例项目：[github](https://github.com/gbohao/gysdk-android-demo)
 
 ## 2. 项目中引入SDK文件
 将下载的SDK文件gysdk-x.x.aar，引入到您的Android项目的libs目录下，并设置依赖。其中x.x为SDK版本号，根据实际情况修改。
@@ -18,31 +19,17 @@ dependencies {
     // 亘元有量sdk aar文件，根据实际文件名修改
     implementation files('libs/gysdk-x.x.aar') 
 
-    implementation "androidx.core:core-ktx:1.10.1"
-
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.appcompat.swiperefreshlayout:1.2.0'
-    implementation 'com.google.android.material:material:1.12.0'
+    // 以下是集成亘元有量sdk所必须的依赖库
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "androidx.recyclerview:recyclerview:1.3.2"
     // okhttp
     implementation "com.squareup.okhttp3:okhttp:4.12.0"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
-
-    // retrofit
-    implementation 'com.alibaba:fastjson:1.2.83'
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
-    // rxjava
-    implementation "io.reactivex.rxjava3:rxjava:3.0.2"
-    implementation "io.reactivex.rxjava3:rxandroid:3.0.2"
 
     // 加载图片
     implementation "com.github.bumptech.glide:glide:4.9.0"
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
 
-    // wechat
+    // 按需导入即可
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android:6.8.24'
 }
 ```
@@ -53,39 +40,12 @@ dependencies {
 -keep class com.gyyl.gysdk.** { *; }
 -keep interface com.gyyl.gysdk.** { *; }
 
-# FastJSON
--dontwarn com.alibaba.fastjson.**
--keep class com.alibaba.fastjson.** { *; }
--keep class com.alibaba.fastjson.annotation.** { *; }
-
-# FastJSON 实体类（JSON 解析需要）
--keepclassmembers class * {
-    @com.alibaba.fastjson.annotation.JSONField <fields>;
-}
-
-# Retrofit2 保留规则
--dontwarn retrofit2.**
--keep class retrofit2.** { *; }
--keepattributes Exceptions
-
-# Retrofit Service 接口
--keepattributes Signature, InnerClasses, EnclosingMethod
--keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
--keepclassmembers,allowshrinking,allowobfuscation interface * {
-    @retrofit2.http.* <methods>;
-}
-
 # OkHttp3 保留规则
 -dontwarn okhttp3.**
 -dontwarn okio.**
 -keep class okhttp3.** { *; }
 -keep class okio.** { *; }
 -keep interface okhttp3.** { *; }
-
-# RxJava3 保留规则
--dontwarn io.reactivex.rxjava3.**
--keep class io.reactivex.rxjava3.** { *; }
--keepclassmembers class io.reactivex.rxjava3.** { *; }
 
 # Glide 保留规则
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -106,10 +66,6 @@ dependencies {
 -dontwarn com.tencent.mm.opensdk.**
 -dontwarn com.tencent.wxop.**
 
-# OkDownload
--keep class com.gyyl.okdownload.** { *; }
--dontwarn com.gyyl.okdownload.**
-
 # JSR 305 注解保留
 -keepattributes javax.annotation.**
 -keep class javax.annotation.** { *; }
@@ -122,6 +78,13 @@ dependencies {
 -keep interface androidx.** { *; }
 -dontwarn androidx.**
 
+# OkDownload
+-keep class com.gyyl.okdownload.** { *; }
+-dontwarn com.gyyl.okdownload.**
+
+# smartrefresh
+-keep class com.gyyl.smartrefresh.** { *; }
+-dontwarn com.gyyl.smartrefresh.**
 
 ```
 
